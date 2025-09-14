@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Footer(){
+export function Footer(){
   return (
     <footer className="container" role="contentinfo">
       <div className="muted">Feito por <strong>Pedro Henrique Morais</strong></div>

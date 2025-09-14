@@ -6,7 +6,7 @@ interface Props {
   isGrid: boolean;
 }
 
-export default function PokemonCard({ id, name, isGrid }: Props) {
+export function PokemonCard({ id, name, isGrid }: Props) {
   return (
     <Link href={`/detalhes/${id}`}>
       <div

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Header({ children }: { children?: React.ReactNode }) {
+export function Header({ children }: { children?: React.ReactNode }) {
   return (
     <header className="container" role="banner">
       <h1>Desafio Fabrica Pokédex — Next.ts</h1>

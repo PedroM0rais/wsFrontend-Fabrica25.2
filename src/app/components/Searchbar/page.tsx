@@ -3,7 +3,7 @@ interface Props {
   onChange: (val: string) => void;
 }
 
-export default function SearchBar({ value, onChange }: Props) {
+export function SearchBar({ value, onChange }: Props) {
   return (
     <input
       type="text"
