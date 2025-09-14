@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
-import {Footer} from "./components/Footer";
-import {Header} from "./components/Header";
+import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
 
 interface Pokemon {
   name: string;
@@ -16,6 +16,7 @@ export default function Home() {
   const [search, setSearch] = useState("");
   const [isGrid, setIsGrid] = useState(true);
 
+  // Busca os 151 primeiros Pokémons
   useEffect(() => {
     const fetchPokemons = async () => {
       const res = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=151");
@@ -24,9 +25,21 @@ export default function Home() {
     fetchPokemons();
   }, []);
 
+  // Filtra os Pokémons pelo nome
   const filtered = pokemons.filter((p) =>
     p.name.toLowerCase().includes(search.toLowerCase())
   );
+
+  // Extrai o ID real do Pokémon a partir da URL
+  const getPokemonId = (url: string) => {
+    const parts = url.split("/").filter(Boolean);
+    const id = parts[parts.length - 1];
+    return Number(id); // garante que seja número
+  };
+
+  // Capitaliza o nome
+  const formatName = (name: string) =>
+    name.charAt(0).toUpperCase() + name.slice(1);
 
   return (
     <main className="container">
@@ -43,12 +56,14 @@ export default function Home() {
           </button>
         </div>
       </Header>
+
       {filtered.length === 0 ? (
-        <div className="no-results">Nenhum Pokemon encontrado</div>
+        <div className="no-results">Nenhum Pokémon encontrado</div>
       ) : (
         <div className={isGrid ? "grid" : "flex-col"}>
-          {filtered.map((pokemon, index) => {
-            const id = index + 1;
+          {filtered.map((pokemon) => {
+            const id = getPokemonId(pokemon.url);
+
             return (
               <Link className="btnLink" key={id} href={`/details/${id}`}>
                 <div className="card">
@@ -57,15 +72,15 @@ export default function Home() {
                     alt={pokemon.name}
                     className="poke-img"
                   />
-                  <p className="card-name">{pokemon.name}</p>
-                  <p className="muted idtag">#{id.toString().padStart(3, "0")}</p>
+                  <p className="card-name">{formatName(pokemon.name)}</p>
+                  <p className="muted idtag">#{String(id).padStart(3, "0")}</p>
                 </div>
               </Link>
             );
           })}
         </div>
       )}
-        <Footer />
+      <Footer />
     </main>
   );
 }
