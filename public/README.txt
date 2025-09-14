@@ -1,0 +1,1 @@
+This project fetches Pokémon images from PokeAPI/official artwork.
