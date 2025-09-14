@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
-import {Footer} from "./components/Footer/page";
-import {Header} from "./components/Header/page";
+import {Footer} from "./components/Footer";
+import {Header} from "./components/Header";
 
 interface Pokemon {
   name: string;
